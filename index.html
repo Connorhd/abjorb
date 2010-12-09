@@ -32,7 +32,7 @@
     <script type="text/javascript" src="title.js"></script>
 	<script type="text/javascript" src="net.js"></script>
   </head>  
-  <body onload="abjorb()" style="background-color: #000">  
+  <body onload="setTimeout(function () { abjorb() }, 1000)" style="background-color: #000">  
     <div id="box" style="margin: 20px auto; border: 5px solid #000; width: 640px">
 		<canvas id="canvas" width="640" height="480"></canvas>  
 	</div>
@@ -45,7 +45,7 @@ ABJORB the smaller one. If antimatter collides with normal matter then they will
 	<li>Red orb: matter that is larger than the player.</li>
 	<li>Orange orb: antimatter that is smaller than the player.</li>
 	<li>Purple orb: antimatter that is larger than the player.</li></ul>
-	
+	<canvas id="cache" style="display: none" width="640" height="480"></canvas>
 	</div>
   </body>  
  </html>  

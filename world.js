@@ -197,9 +197,24 @@ World.prototype.draw = function () {
 	G.context.fillStyle = "rgb(255, 255, 255)";
 	G.context.fillRect(0, 0, G.canvas.width, G.canvas.height);
 
+	if (G.zoomCache === undefined || G.zoomCache.zoom != this.camera.zoom) {
+		var zoomCanvas = $('#cache');
+		zoomCanvas = zoomCanvas[0];
+		zoomCanvas.width = G.images.world.width * this.camera.zoom;
+		zoomCanvas.height = G.images.world.height * this.camera.zoom;
+
+		var ctx = zoomCanvas.getContext("2d");
+		ctx.drawImage(G.images.world, 0, 0,
+				    G.images.world.width * this.camera.zoom,
+				    G.images.world.height * this.camera.zoom);
+		G.zoomCache = {
+			ctx: zoomCanvas,
+			zoom: this.camera.zoom
+		}
+	}
 	if (!G.lowGraphics) {
 		var topleft = this.camera.worldToScreen($V(0, 0));
-		G.context.drawImage(G.images.world, topleft.x, topleft.y,
+		G.context.drawImage(G.zoomCache.ctx, topleft.x, topleft.y,
 				    G.images.world.width * this.camera.zoom,
 				    G.images.world.height * this.camera.zoom);
 	}
